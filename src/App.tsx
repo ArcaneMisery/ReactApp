@@ -1,25 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import LoginForm from './login-form';
+import ToDoListComponent from './layout/general/todo-list/todo-list.component';
 
 function App() {
+  const [form, setForm] = useState({
+    login: "",
+    password: ""
+  });
+  const handleForm = (formValue: {controlName: string, value: string}) => {
+    setForm({...form, [formValue.controlName]: formValue.value});
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  <>
+    <div>
+      <label>Login</label>
+      <span>{form.login}</span>
+      <label>Password</label>
+      <span>{form.password}</span>
     </div>
+    <LoginForm handleForm={handleForm} form={form} />
+    <ToDoListComponent/>
+    
+  </>
   );
 }
 
