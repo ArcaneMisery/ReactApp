@@ -1,0 +1,56 @@
+a,
+span.link {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a.active {
+  color: #004caf;
+}
+
+span.link:hover{
+  color: red;
+} 
+
+header {
+  width: 100%;
+  padding: 10px 12px;
+  display: flex;
+  align-items: start;
+  background: #fddada;
+}
+
+.links-list {
+  display: flex;
+  align-items: start;
+
+  li {
+    margin-right: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid black;
+
+    &:hover {
+      border-bottom: 4px solid rgb(133, 98, 33);
+    }
+  }
+
+  li.active {
+    border-bottom: 1px solid orange;
+  }
+}
+
+.user-block {
+  margin-left: auto;
+  display: flex;
+  align-items: start
+
+}
+
+.user-info-block {
+  margin-right: 10px;
+}
+
+
+
+

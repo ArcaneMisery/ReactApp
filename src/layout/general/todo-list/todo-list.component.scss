@@ -1,0 +1,22 @@
+.todo-wrapper {
+    padding: 0 20px;
+}
+
+.text-box {
+    width: 280px
+}
+
+.submit-block {
+    width: 25%;
+    display: flex;
+    padding: 20px 0;
+}
+
+.submit-block button {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.submit-block button:last-child {
+    margin-right: 0;
+}

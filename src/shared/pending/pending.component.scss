@@ -1,0 +1,43 @@
+.pending-container {
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	position: absolute;
+	z-index: 15;
+	display: flex;
+	background: rgba(255, 255, 255, 0.5);
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+div.cancel-block {
+	margin-top: 10px;
+
+	span {
+		display: inline-block;
+		font-size: 20px;
+		color: #fff;
+		border: 2px solid transparent;
+		border-bottom-color: #fff;
+		cursor: pointer;
+		transition: 0.4s;
+		padding: 3px 5px;
+
+		&:hover {
+			transform: scale(1.1);
+			background: #9b9b9b;
+			border-color: #fff;
+			border-radius: 6px;
+		}
+	}
+}
+
+:host-context(.global) {
+	background: rgb(102 102 102 / 50%);
+
+	>svg>circle {
+		stroke: #fff;
+	}
+}

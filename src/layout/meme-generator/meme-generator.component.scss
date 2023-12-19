@@ -1,0 +1,53 @@
+.wrapper {
+    padding: 10px 20px 0;
+    height: calc(100vh - 68px);
+}
+
+.form-wrapper {
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.text-box {
+    margin-right: 15px;
+}
+
+.text-box:last-child {
+    margin-right: 0;
+}
+
+.meme-container {
+    height: calc(100% - 96px);
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-wrapper {
+    position: relative;
+}
+
+.top, .bottom {
+    text-transform: uppercase;
+    position: absolute;
+    color: white;
+    width: 100%;
+    text-align: center;
+    text-shadow: 2px 1px black;
+}
+
+.top {
+    top: 0;
+}
+
+.bottom {
+    bottom: 0;
+}
+
+img {
+    max-width: 90vw;
+    max-height: 60vh;
+
+}

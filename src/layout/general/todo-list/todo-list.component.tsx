@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import TextBoxComponent from "../../../shared/app-text-box.component";
+import TextBoxComponent from "../../../shared/app-text-box/app-text-box.component";
+import "./todo-list.component.scss";
 
 function ToDoListComponent(props: any) {
 
@@ -8,7 +9,6 @@ function ToDoListComponent(props: any) {
     todo: "",
     time: ""
   });
-
 
   const handleForm = (formValue: {controlName: string, value: string}) => {
     setForm({...form, [formValue.controlName]: formValue.value });
@@ -35,7 +35,7 @@ function ToDoListComponent(props: any) {
   useEffect(() => {
     const items = localStorage.getItem("todos");
     if (items) {
-      setList(JSON.parse(items))
+      setList(JSON.parse(items));
     }
   }, []);
 
@@ -43,19 +43,15 @@ function ToDoListComponent(props: any) {
     if(!list.length) {
       return;
     }
-    localStorage.setItem("todos", JSON.stringify(list))
+    localStorage.setItem("todos", JSON.stringify(list));
   }
 
   return (
-    <div>
-      <div className="todo-list-container">
-      {
-        list.map((element: {todo: string, time: string}, index) => <p key={element.todo + index}>{element.todo};{element.time}</p> )
-      }
-      </div>
+    <div  className="todo-wrapper">
       <div className="add-form">
         <TextBoxComponent innerLabel="Что сделать" value={form.todo} handleValue={handleForm} controlName="todo" />
         <TextBoxComponent innerLabel="Когда" value={form.time} handleValue={handleForm} controlName="time" />
+        <div className="submit-block">
         <button className="add" onClick={() => handleList(form)}>
           Добавить Дело
         </button>
@@ -65,6 +61,12 @@ function ToDoListComponent(props: any) {
         <button className="save" onClick={() => clearList()}>
           Удлить
         </button>
+        </div>
+      </div>
+      <div className="todo-list-container">
+      {
+        list.map((element: {todo: string, time: string}, index) => <p key={element.todo + index}>{element.todo};{element.time}</p> )
+      }
       </div>
     </div>
   );
