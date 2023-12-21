@@ -1,20 +1,21 @@
 import { useEffect, useState } from "react";
 import "./meme-generator.component.scss";
 import TextBoxComponent from "../../shared/app-text-box/app-text-box.component";
+import EdgeCalculatorPopupComponent from "./edge-calculator-popup/edge-calculator-popup.component";
 
 function MemeGeneratorComponent(props?: any) {
-
     const [componentState, setComponentState] = useState({
         topText: "",
         bottomText: "",
         randomImg: "http://i.imgflip.com/1bij.jpg"
     });
+    const [allMemes, setAllMemes] = useState<{url: string}[]>([]);
+    const [isPopupOpened, setIsPopupOpened] = useState(false);
+
 
     const handleComponentState = (formValue: {controlName: string, value: string}) => {
         setComponentState({...componentState, [formValue.controlName]: formValue.value});
     }
-
-    const [allMemes, setAllMemes] = useState<{url: string}[]>([]);
 
     useEffect(() => {
         fetch("https://api.imgflip.com/get_memes")
@@ -31,21 +32,25 @@ function MemeGeneratorComponent(props?: any) {
     }
 
     return (
-        <div className="wrapper">
-            <h2>Meme Generator</h2>
-            <div className="form-wrapper">
-              <TextBoxComponent controlName="topText" innerLabel={"topText"} value={componentState.topText} handleValue={handleComponentState}></TextBoxComponent>
-              <TextBoxComponent controlName="bottomText" innerLabel={"bottomText"} value={componentState.bottomText} handleValue={handleComponentState}></TextBoxComponent>
-              <button onClick={() => {handleSubmit()}} type="button" >Generate</button>
-            </div>
-            <div className="meme-container">
+        <>
+            <div className="wrapper">
+                <h2>Meme Generator</h2>
+                <div className="form-wrapper">
+                    <TextBoxComponent controlName="topText" innerLabel={"topText"} value={componentState.topText} handleValue={handleComponentState}></TextBoxComponent>
+                    <TextBoxComponent controlName="bottomText" innerLabel={"bottomText"} value={componentState.bottomText} handleValue={handleComponentState}></TextBoxComponent>
+                    <button onClick={() => { handleSubmit() }} type="button" >Generate</button>
+                    <button onClick={() => { setIsPopupOpened(true) }} type="button" >Edge calculator</button>
+                </div>
+                <div className="meme-container">
                 <div className="image-wrapper">
                     <img src={componentState.randomImg} alt="" />
                     <h2 className="top">{componentState.topText}</h2>
                     <h2 className="bottom">{componentState.bottomText}</h2>
                 </div>
             </div>
-        </div>
+            </div>
+            {isPopupOpened && <EdgeCalculatorPopupComponent /> }
+        </>
     );
 }
 

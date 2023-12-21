@@ -1,11 +1,11 @@
+import { useLoaderData } from "react-router-dom";
 import { UserProp } from "../core-module/models/user-models";
 import HeaderComponent from "./header/header.component";
 
 
-function LayoutComponent(props: {user: UserProp}) {
-
+function LayoutComponent(props: any) {
     return (
-        <HeaderComponent user={props.user} ></HeaderComponent>
+        <HeaderComponent />
     );
 }
 

@@ -11,7 +11,7 @@ function VkPhotoContainer(props: any) {
     const {user, photos, setYearAction, getPhotosAction} = props;
 
     useEffect(() => {
-        console.log(user, photos, setYearAction, "effect");
+        // console.log(user, photos, setYearAction, "effect");
     });
 
     const selectYear = (year: string) => {
@@ -34,7 +34,6 @@ function VkPhotoContainer(props: any) {
 }
 
 const mapStateToProps = (store: any) => {
-    console.log(store, "store")
     return {
        user: store.authReducer,
        photos: store.VkPhotoReducer

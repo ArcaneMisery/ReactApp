@@ -1,12 +1,16 @@
+import { useEffect } from "react";
 import { UserProp } from "../../core-module/models/user-models";
 import "./header.component.scss";
-import { Outlet, NavLink, useLocation, Navigate } from "react-router-dom";
+import { Outlet, NavLink, useLocation, Navigate, useLoaderData, redirect, useNavigate } from "react-router-dom";
 
-function HeaderComponent(props: { user: UserProp }) {
+function HeaderComponent() {
+  const navigate = useNavigate();
+  const userData: UserProp = useLoaderData() as UserProp;
 
   const logout = () => {
     localStorage.clear();
-    props.user.setIsLoggedIn(false);
+    navigate("/login");
+
   }
   const location = useLocation();
   return (
@@ -36,8 +40,8 @@ function HeaderComponent(props: { user: UserProp }) {
         </ul>
         <div className="user-block" >
           <div className="user-info-block">
-            <p>{props.user.userInfo?.userName}</p>
-            <p>Role: {props.user.userInfo?.userAuthority}</p>
+            <p>{userData?.userInfo?.userName}</p>
+            <p>Role: {userData?.userInfo?.userAuthority}</p>
           </div>
           <div className="link-block">
             <span className="link" onClick={() => (logout())}>
@@ -46,7 +50,7 @@ function HeaderComponent(props: { user: UserProp }) {
           </div>
         </div>
       </header>
-      {props.user.isLoggedIn && location.pathname === "/" &&
+      {userData?.isLoggedIn && location.pathname === "/" &&
         <Navigate to="todo" />
       }
       <Outlet />

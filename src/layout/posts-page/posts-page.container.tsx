@@ -4,20 +4,17 @@ import PostsPageComponent from "./posts-component/posts-page.component";
 import { useEffect, useState } from "react";
 import PendingComponent from "../../shared/pending/pending.component";
 import { PostModel } from "../../core-module/models/posts-models";
-import PostFormComponent from "./post-form/post-form.component";
-
 
 function PostsPageContainer(props: any) {
-    const {user, posts, setFilterAction, getPostsAction, setActivePostAction} = props;
-    const [page, setPage] = useState(1);
-    const [activePost, setActivePost] = useState<PostModel | null>(null);
+    const { posts, setFilterAction, getPostsAction, setActivePostAction} = props;
+    const [ page, setPage ] = useState(1);
 
     useEffect(() => {
         getPostsAction();
-    }, []);
+    }, [getPostsAction]);
 
     const handlePageState = (page: number) => {
-        if(posts.postsByPage.length === posts.posts.length) {
+        if (posts.postsByPage.length === posts.posts.length) {
             return;
         }
         setPage(page + 1);
@@ -26,14 +23,11 @@ function PostsPageContainer(props: any) {
 
     const handleActivePost = (post: PostModel) => {
         setActivePostAction(post);
-        setActivePost(post);
     }
 
     return (
         <div>
-            {activePost ? <PostFormComponent post={activePost} comments={props.comments}/>
-            : <PostsPageComponent posts={posts.postsByPage} page={page} pending={posts.pending} handlePageState={handlePageState} handleActivePost={handleActivePost} ></PostsPageComponent>}
-
+            <PostsPageComponent posts={posts.postsByPage} page={page} pending={posts.pending} handlePageState={handlePageState} handleActivePost={handleActivePost} ></PostsPageComponent>
             {posts.pending ? <PendingComponent/> : ""}
         </div>
     );

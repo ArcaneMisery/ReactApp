@@ -6,24 +6,30 @@ export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
 
+const users = [
+  {login: "testUser", password: "test", userInfo: {userName: "testUser", userAuthority: "user"}},
+  {login: "admin", password: "admin", userInfo: {userName: "userAdmin", userAuthority: "admin"}},
+];
+
+
 export function handleLogin(credentials: {login: string, password: string}) {
-    return function(dispatch: any) {
+    return (dispatch: any) => {
+      dispatch({
+          type: LOGIN_REQUEST,
+      });
+      const userFromList = users.find((user) => (user.login === credentials.login && user.password === credentials.password));
+      if (userFromList) {
+        localStorage.setItem("user", JSON.stringify(userFromList.userInfo));
         dispatch({
-            type: LOGIN_REQUEST,
-            payload: credentials
+          type: LOGIN_SUCCESS,
+          payload: userFromList.userInfo
         });
-        
-
-
-
-        dispatch({
-            type: LOGIN_SUCCESS,
-            payload: credentials
-        });
-        dispatch({
-            type: LOGIN_FAIL,
-            payload: credentials
-        })
+        return;
+      }
+      dispatch({
+        type: LOGIN_FAIL,
+        payload: credentials
+      });
     }
 }
 

@@ -5,6 +5,10 @@ export interface UserInfo {
 
   export interface UserProp {
     isLoggedIn: boolean;
-    setIsLoggedIn: any; 
     userInfo: UserInfo | null;
+}
+
+export interface UserCredentials {
+  login: string;
+  password: string
 }
