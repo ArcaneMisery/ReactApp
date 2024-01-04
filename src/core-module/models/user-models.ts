@@ -9,6 +9,6 @@ export interface UserInfo {
 }
 
 export interface UserCredentials {
-  login: string;
-  password: string
+  login: string | null;
+  password: string | null;
 }

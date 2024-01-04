@@ -59,11 +59,6 @@ img {
   display: block;
 }
 
-/* Указываем понятную периодичность в потоке данных у article*/
-article > * + * {
-  margin-top: 1em;
-}
-
 /* Наследуем шрифты для инпутов и кнопок */
 input,
 button,
@@ -170,6 +165,20 @@ button {
   .form-fill {
     background: #fff;
     border-radius: 5px;
-    padding: 20px;
+    padding: 12px 20px 20px 20px;
+
+    article {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
   }
+}
+
+svg {
+  color: #4867ad;
+}
+
+.button-icon {
+  cursor: pointer;
 }

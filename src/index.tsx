@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import { store } from './store/configureStore';
 import { RouteObject, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import ToDoListComponent from './layout/general/todo-list/todo-list.component';
-import userLoader from './router-loaders/user-loader';
+import userLoader from './router-loaders/user.loader';
 import LoginComponent from './layout/login-page/login.component';
 import MemeGeneratorComponent from './layout/meme-generator/meme-generator.component';
 import PostFormComponent from './layout/posts-page/post-form/post-form.component';

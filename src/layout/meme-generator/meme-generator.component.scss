@@ -9,7 +9,7 @@
     flex-wrap: wrap;
 }
 
-.text-box {
+.column {
     margin-right: 15px;
 }
 
@@ -49,5 +49,8 @@
 img {
     max-width: 90vw;
     max-height: 60vh;
+}
 
+button {
+    margin-bottom: 0 !important;
 }

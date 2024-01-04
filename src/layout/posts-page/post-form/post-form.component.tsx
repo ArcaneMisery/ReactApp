@@ -5,40 +5,40 @@ import PendingComponent from "../../../shared/pending/pending.component";
 import { useEffect, useState } from "react";
 import { clearComments, getComments, getPostById } from "../../../actions/posts-page.actions";
 import { PostPageStateModel } from "../../../reducers/posts-page.reducer";
-import TextAreaBoxComponent from "../../../shared/text-area-box/text-area-box.component";
+import TextAreaBoxComponent from "../../../shared/controls/text-area-box/text-area-box.component";
 import SendIcon from '@mui/icons-material/Send';
+import { useForm } from "react-hook-form";
 
 function PostFormComponent(props: any) {
     const { posts, getCommentsAction, getPostByIdAction, clearCommentsAction }: { posts: PostPageStateModel, getCommentsAction: any, getPostByIdAction: any, clearCommentsAction: any} = props;
     const { id } = useParams();
-    const [form, setForm] = useState({
-        comment: ""
-    });
-    const [ activeReplyIndex, setActiveReplyIndex ] = useState<null | number>(null);
+    const { control, getValues, reset } = useForm<any>({
+        defaultValues: {
+            comment: null,
+            reply: null
+        },
+      })
+
+    const [activeReplyIndex, setActiveReplyIndex] = useState<null | number>(null);
 
     useEffect(() => {
+        //onInit
         getPostByIdAction(id);
         getCommentsAction(id);
         return () => {
+            //onDestroy
             clearCommentsAction();
         }
     }, []);
 
     const handleActiveIndex = (index: number) => {
-        clearForm();
+        reset();
         setActiveReplyIndex(index);
+        
     }
 
-    const clearForm = () => {
-        handleForm({controlName: "comment", value: ""});
-    }
-
-    const handleForm = (formValue: {controlName: string, value: string}) => {
-        setForm({...form, [formValue.controlName]: formValue.value});
-    };
-
-    const sendComment = (comment: string) => {
-        clearForm();
+    const sendCommentOReply = (commentOreply: string) => {
+        reset();
         setActiveReplyIndex(null);
     }
 
@@ -73,9 +73,9 @@ function PostFormComponent(props: any) {
                             </div>}
                             {activeReplyIndex === index && 
                             <div className="comment-reply-form">
-                                <TextAreaBoxComponent value={form.comment} controlName="comment" handleValue={handleForm} ></TextAreaBoxComponent>
-                                <div className="icon-wrapper" onClick={() => sendComment(form.comment)}>
-                                    <SendIcon />
+                                <TextAreaBoxComponent control={control} name="reply" rules={{ required: true }} isNeedFocus={true} ></TextAreaBoxComponent>
+                                <div className="icon-wrapper" onClick={() => sendCommentOReply(getValues("reply"))}>
+                                    <SendIcon className="send" />
                                 </div>
                             </div>
                             }

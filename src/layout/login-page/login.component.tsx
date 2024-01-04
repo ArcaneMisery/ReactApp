@@ -13,8 +13,8 @@ function LoginComponent(props: any) {
   const { authState, handleLogin }: {authState: AuthStateModel, handleLogin: any} = props;
 
   const [form, setForm] = useState({
-    login: "",
-    password: ""
+    login: null,
+    password: null
   });
 
   useEffect(() => {

@@ -12,7 +12,7 @@ const users = [
 ];
 
 
-export function handleLogin(credentials: {login: string, password: string}) {
+export function handleLogin(credentials: {login: string | null, password: string | null}) {
     return (dispatch: any) => {
       dispatch({
           type: LOGIN_REQUEST,

@@ -1,35 +1,53 @@
 import { useEffect, useState } from "react";
-import TextBoxComponent from "../../../shared/app-text-box/app-text-box.component";
+import TextBoxComponent from "../../../shared/controls/app-text-box/app-text-box.component";
 import "./todo-list.component.scss";
+import { useForm } from "react-hook-form";
+import TimePickerBoxComponent from "../../../shared/controls/time-picker-box/time-picker-box.component";
+import SelectBoxComponent from "../../../shared/controls/select-box/select-box.component";
 
 function ToDoListComponent(props: any) {
+  const workTypesList = [
+    {key: "gym", value: "Gym"},
+    {key: "work", value: "Work"},
+    {key: "home", value: "Home"},
+  ];
+  const testTypesList = [
+    {key: "gym", value: "Gym"},
+    {key: "work", value: "Work"},
+    {key: "home", value: "Home"},
+    {key: "abortion", value: "Abortion"},
+    {key: "academic", value: "Academic"},
+    {key: "brilliant", value: "Brilliant"},
+    {key: "capital", value: "Capital"},
+    {key: "detail", value: "Detail"},
+    {key: "destruction", value: "Destruction"},
+    {key: "employee", value: "Employee"},
+    {key: "employment", value: "Employment"},
+    {key: "fishing", value: "Fishing"},
+  ];
 
   const [list, setList] = useState<{todo: string, time: string}[]>([]);
-  const [form, setForm] = useState({
-    todo: "",
-    time: ""
+  const { control, reset, getValues, formState, trigger } = useForm<any>({
+    defaultValues: {
+      todo: null,
+      time: null,
+      type: null,
+      typeSec: null
+    }
   });
-
-  const handleForm = (formValue: {controlName: string, value: string}) => {
-    setForm({...form, [formValue.controlName]: formValue.value });
-  }
-
-  const clearForm = () => {
-    setForm({todo: "", time: ""});
-  }
-
+  const { isValid } = formState;
   const clearList = () => {
     setList([]);
     localStorage.removeItem("todos")
   }
 
   const handleList = (listItem: {todo: string, time: string}) => {
-    if(!listItem.todo) {
-      alert("Напишите что необходимо сделать");
+    if (!isValid) {
+      trigger();
       return;
     }
     setList([...list, listItem]);
-    clearForm();
+    reset();
   }
 
   useEffect(() => {
@@ -47,19 +65,25 @@ function ToDoListComponent(props: any) {
   }
 
   return (
-    <div  className="todo-wrapper">
+    <div className="todo-wrapper">
       <div className="add-form">
-        <TextBoxComponent innerLabel="Что сделать" value={form.todo} handleValue={handleForm} controlName="todo" />
-        <TextBoxComponent innerLabel="Когда" value={form.time} handleValue={handleForm} controlName="time" />
+        <label>TODO</label>
+        <TextBoxComponent  control={control} name="todo" rules={{ required: true }}></TextBoxComponent>
+        <label>When</label>
+        <TimePickerBoxComponent control={control} name="time"></TimePickerBoxComponent>
+        <label>Type of work</label>
+        <SelectBoxComponent control={control} name="type" list={workTypesList}></SelectBoxComponent>
+        <label>Test box</label>
+        <SelectBoxComponent control={control} name="typeSec" list={testTypesList} withSearch={true} ></SelectBoxComponent>
         <div className="submit-block">
-        <button className="add" onClick={() => handleList(form)}>
-          Добавить Дело
+        <button className="add" onClick={() => handleList(getValues())}>
+          Add TODO
         </button>
         <button className="save" onClick={() => saveList()}>
-          Сохранить
+          Save
         </button>
         <button className="save" onClick={() => clearList()}>
-          Удлить
+          Delete all
         </button>
         </div>
       </div>
